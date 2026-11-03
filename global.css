@@ -18,3 +18,18 @@
     --color-pastel-blue: #DFEAF0;
     --color-pastel-yellow: #F3E8B4;
 }
+
+@layer components {
+    .tabs-icon {
+        @apply size-12 items-center justify-center;
+    }
+    .tabs-pill {
+        @apply size-12 items-center justify-center rounded-full bg-transparent;
+    }
+    .tabs-glyph {
+        @apply size-9;
+    }
+    .tabs-active {
+        @apply bg-pastel-green;
+    }
+}

@@ -1,21 +1,14 @@
 [
     {
         "_guid": "128eha8d2kas",
-        "index": 0,
         "isActive": true,
-        "isAccepting": true,
-        "name": "Event Name",
-        "description": "Placeholder description.",
-        "location": "Event Location",
-        "image": "https://mymodernmet.com/wp/wp-content/uploads/2018/05/free-image-downloads.jpg",
-        "organisation": "Event Organisation",
-        "Tags": [
-            "Tag1","Tag2","Tag3"
-        ],
-        "registeredDate": "2024-06-01T12:00:00Z",
-        "startDate": "2026-06-01T12:00:00Z",
-        "endDate": "2026-06-02T12:00:00Z",
-        "currentAttendees": 0,
-        "maxAttendees": 10
+        "index": 0,
+        "completed": false,
+        "name": "Activity Name",
+        "description": "This should be a brief description of the activity.",
+        "color": "red",
+        "icon": "face",
+        "theme": "Feelings",
+        "approximateTime": "4 min"
     }
 ]

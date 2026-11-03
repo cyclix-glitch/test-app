@@ -9,7 +9,7 @@ const Activities = () => {
             pathname:"/activity/[id]",
             params:{id:"test-id"}
           }}className="mt-4 rounded bg-black text-white p-4">
-            Test Activity 2
+            Test Activity
         </Link>
     </View>
     );
