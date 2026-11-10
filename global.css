@@ -20,16 +20,63 @@
 }
 
 @layer components {
+    /*Global*/
+    .subtext {
+        @apply w-max h-fit text-xl text-subtext text-center;
+    }
+
+    /*Homepage*/
+    .home-top {
+        @apply flex-row items-center justify-between h-14 w-full;
+    }
+    .home-status {
+        @apply bg-pastel-purple font-[ui-rounded] rounded-full color-title px-4 py-3 shrink-0 font-bold text-xl;
+    }
+    .home-brand {
+        @apply size-20 shrink-0 object-contain;
+    }
+    .home-greeting {
+        @apply h-fit w-full text-4xl md:text-5xl font-[ui-rounded] font-bold color-title mt-10;
+    }
+    .home-subtext {
+        @apply h-fit w-full text-2xl font-[ui-rounded] font-light color-subtext mt-4 ml-4;
+    }
+    /*Activities*/
+    .activity-title {
+        @apply h-fit w-full text-3xl md:text-4xl font-[ui-rounded] font-medium color-title flex-3;
+    }
+    .activity-counter {
+        @apply h-fit w-full text-lg md:text-xl font-[ui-rounded] font-semibold color-subtext flex-1 text-right;
+    }
+    .activity-filter-pill {
+        @apply bg-white rounded-full text-subtext h-max w-fit text-xl px-3 py-1 mr-3;
+    }
+    .activity-filter-pill-selected {
+        @apply bg-text text-white;
+    }
+    .activity-card {
+        @apply bg-card rounded-3xl border-border border-2 flex-row items-center px-10 py-4;
+    }
+    .activity-card-image {
+        @apply items-center rounded-[24%];
+    }
+
+    /*Bottom Tab*/
     .tabs-icon {
         @apply size-12 items-center justify-center;
     }
+
     .tabs-pill {
         @apply size-12 items-center justify-center rounded-full bg-transparent;
     }
-    .tabs-glyph {
-        @apply size-9;
-    }
-    .tabs-active {
+    .tabs-pill-active {
         @apply bg-pastel-green;
+    }
+
+    .tabs-label {
+        @apply font-[ui-rounded] color-subtext font-[500] hover:color-text hover:font-[700];
+    }
+    .tabs-label-active{
+        @apply color-text font-[700];
     }
 }

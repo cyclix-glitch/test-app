@@ -13,7 +13,18 @@ export const tabs = [
     },
     {
         name: "progress",
-        title: "Progress",
+        title: "Settings",
         icon: icons.calendarsolidfull
     },
 ]
+
+export const USER = {
+    name: "Jun Jie",
+    privilege: 0
+}
+
+export const FILTERS = [
+    "All Activities","Feelings","Speech","Body Signals","Coping Skills"
+]
+
+export const ACTIVITIES: Activity[] = []

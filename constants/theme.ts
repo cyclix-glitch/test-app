@@ -7,6 +7,17 @@ export const colors = {
     border: "#E2E6DE"
 } as const;
 
+export const themeColors = {
+    red: "#F5D6BE",
+    green: "#E5EFE5",
+    blue: "#DFEAF0",
+    yellow: "#F3E8B4",
+    purple: "#E6DFF3",
+    pink: "#FF99C8",
+    orange: "#FFC067",
+    grey: "#D3D3D3"
+} as const;
+
 export const spacing = {
     0:0,
     .5:2,
@@ -43,6 +54,7 @@ export const components = {
 
 export const theme = {
     colors,
+    themeColors,
     spacing,
     components
 } as const;
