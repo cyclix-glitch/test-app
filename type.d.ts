@@ -1,9 +1,16 @@
-import { ImageSourcePropType } from "react-native";
-
 declare global {
-    interface TabIconProps {
-        focused: boolean;
-        icon: ImageSourcePropType;
+    interface Activity {
+        _guid: string,
+        isActive: boolean,
+        index?: number,
+        completion: number,
+        completedDate?: string,
+        title: string,
+        description: string,
+        color?: string,
+        icon: string,
+        theme: string,
+        approximateTime: string
     }
 }
 

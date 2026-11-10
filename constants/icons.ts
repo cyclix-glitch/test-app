@@ -1,15 +1,17 @@
 //import name from "@/assets/icons/name.png";
-import test from "@/assets/images/icon.png";
-import housesolidfull from "@/assets/house.png";
-import globesolidfull from "@/assets/globe.png";
-import calendarsolidfull from "@/assets/calendar.png";
+import housesolidfull from "@/assets/icons/house.png";
+import globesolidfull from "@/assets/icons/globe.png";
+import calendarsolidfull from "@/assets/icons/calendar.png";
+
+import completed from "@/assets/icons/completed.png";
+import chevron from "@/assets/icons/chevron.png";
 
 export const icons = {
-    //name
-    test,
     housesolidfull,
     globesolidfull,
-    calendarsolidfull
+    calendarsolidfull,
+    completed,
+    chevron
 } as const;
 
 export type IconKey = keyof typeof icons;

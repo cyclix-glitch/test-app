@@ -1,8 +1,13 @@
-import { View, Image, Text, type ColorValue } from 'react-native';
+import {
+    View,
+    Image,
+    Text,
+    Animated
+} from 'react-native';
 import { Tabs } from "expo-router"
 import { tabs } from "@/constants/data"
-import {useSafeAreaInsets} from "react-native-safe-area-context"
-import clsx from "clsx"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { clsx } from "clsx"
 
 import { colors,components,spacing } from "@/constants/theme"
 import "@/global.css"
@@ -11,19 +16,14 @@ const tabBar = components.tabBar;
 
 const TabsLayout = () => {
     const insets = useSafeAreaInsets();
-    const TabIcon = ({focused,icon,color}:TabIconProps & {color: ColorValue}) => {
-        return (<View className = "tabs-icon">
-            <View className = {clsx('tabs-pill',focused && 'tabs-active')}>
-                <Image source = {icon} resizeMode="contain" className = "tabs-glyph" style={{tintColor: color}}/>
-            </View>
-        </View>)
-    }
+
     return (
     <Tabs screenOptions={{
         headerShown:false,
         //tabBarShowLabel:false,
         tabBarActiveTintColor: colors.text,
         tabBarInactiveTintColor: colors.subtext,
+        
         tabBarStyle:{
             position: "absolute",
             bottom: Math.max(insets.bottom, tabBar.horizontalInset),
@@ -46,19 +46,20 @@ const TabsLayout = () => {
             height: tabBar.iconFrame,
             alignItems: "center",
         },
-        tabBarLabelStyle:{
-            fontFamily: "ui-rounded"
-        }
         }}>
 
         {tabs.map((tab) => (
             <Tabs.Screen key = {tab.name} name = {tab.name} options = {{
                 title: tab.title,
-                tabBarIcon: ({focused, color}) => (
-                    <TabIcon focused = {focused} icon = {tab.icon} color = {color} />
+                tabBarIcon: ({focused}) => (
+                    <Animated.View className = "tabs-icon">
+                        <View className = {clsx('tabs-pill',focused?'tabs-pill-active':null)}>
+                            <Image source={tab.icon} resizeMode="contain" style={{ width: 32, height: 32, tintColor: focused ? colors.text : colors.subtext }}/>
+                        </View>
+                    </Animated.View>
                 ),
-                tabBarLabel: ({focused, color}) => (
-                    <Text style={{color, fontWeight: focused ? "700" : "500"}}>
+                tabBarLabel: ({focused}) => (
+                    <Text className = {clsx("tabs-label",focused?"tabs-label-active":null)}>
                         {tab.title}
                     </Text>
                 ),
