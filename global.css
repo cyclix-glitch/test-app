@@ -33,7 +33,7 @@
         @apply bg-pastel-purple font-[ui-rounded] rounded-full color-title px-4 py-3 shrink-0 font-bold text-xl;
     }
     .home-brand {
-        @apply size-20 shrink-0 object-contain;
+        @apply h-[6vh] w-auto shrink-0 object-contain;
     }
     .home-greeting {
         @apply h-fit w-full text-4xl md:text-5xl font-[ui-rounded] font-bold color-title mt-10;
@@ -79,4 +79,50 @@
     .tabs-label-active{
         @apply color-text font-[700];
     }
+
+     .section-exit{
+        @apply text-title h-min w-auto text-center bg-white rounded-full aspect-square;
+    }
+    .section-audio{
+        @apply text-title h-min w-auto text-center bg-white rounded-full aspect-square;
+    }
+    .section-progress{
+        @apply bg-border flex-3 rounded-full overflow-hidden;
+    }
+    .section-bar{
+        @apply bg-text h-5 rounded-r-full;
+    }
+    .section-header-title{
+        @apply text-title font-[ui-rounded] text-3xl flex-2 text-center;
+    }
+    .section-header-count{
+        @apply w-fit text-subtext ml-[5%] font-[ui-rounded] font-bold;
+    }
+    /*.section-title{
+        @apply;
+    }
+    .section-subtitle{
+        @apply;
+    }
+    .section-subtext{
+        @apply;
+    }
+    .section-previous{
+        @apply;
+    }
+    .section-next{
+        @apply;
+    }
+    .section-switch-text{
+        @apply;
+    }
+    .section-MCQ-option{
+        @apply;
+    }
+    .section-textbox{
+        @apply;
+    }
+    .section-audiobox{
+        @apply;
+    } */
 }

@@ -34,11 +34,11 @@ function mixWithBlack(color: string): string {
   ).join("")}`;
 }
 
-export default function Card({_guid,title,description,approximateTime,theme,index,completion,icon,color}:Activity){
+export default function Card({_guid,title,description,approximateTime,theme,index,completedSection,totalSections,icon,color}:Activity){
   const imageColor = getImageColor(color)
   const iconColor = mixWithBlack(imageColor);
   return (
-    <Link href={{pathname:"/activity/[id]",params:{id:_guid}}} asChild>
+    <Link href={{pathname:"/activity/[id]",params:{id:_guid,completedSection:(completedSection ?? 0).toString()}}} asChild>
       <Pressable>
         <View className="activity-card">
           <View className={clsx("activity-card-image","flex-6 md:flex-4")} style={{backgroundColor: imageColor}} >
@@ -49,11 +49,11 @@ export default function Card({_guid,title,description,approximateTime,theme,inde
             <Text numberOfLines={1} ellipsizeMode="tail" className="text-3xl text-title">{title}</Text>
             <Text numberOfLines={2} ellipsizeMode="tail" className="text-xl font-light text-subtext mt-3">{description}</Text>
             <Text className="text-xl font-semibold text-text mt-2">{
-            approximateTime+' \u{2022} '+theme+' \u{2022} '+(completion!==0?completion.toString()+"% Explored":(index===0?"Up Next":"Try it"))
+            approximateTime+' \u{2022} '+theme+' \u{2022} '+(completedSection?Math.round((completedSection)/totalSections*100).toString()+"% Explored":(index===0?"Up Next":"Try it"))
             }</Text>
           </View>
           <View className="flex-1 items-start py-[2%]">
-            <Image source={completion===100?icons.completed:icons.chevron} className="flex-1 object-contain w-full h-auto aspect-square" style={{ tintColor: colors.subtext }}/>
+            <Image source={completedSection===totalSections?icons.completed:icons.chevron} className="flex-1 object-contain w-full h-auto aspect-square" style={{ tintColor: colors.subtext }}/>
             <View className="w-full h-max flex-9"/>
           </View>
           
