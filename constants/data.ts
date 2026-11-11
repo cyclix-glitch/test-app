@@ -14,12 +14,12 @@ export const tabs = [
     {
         name: "progress",
         title: "Settings",
-        icon: icons.calendarsolidfull
+        icon: icons.settings
     },
 ]
 
 export const USER = {
-    name: "Jun Jie",
+    name: "Example Name",
     privilege: 0
 }
 

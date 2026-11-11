@@ -35,7 +35,8 @@
           "image": "./assets/splashart.png",
           "imageWidth": 76
         }
-      ]
+      ],
+      "expo-audio"
     ],
     "experiments": {
       "typedRoutes": true,
