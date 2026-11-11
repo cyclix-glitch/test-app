@@ -55,10 +55,10 @@
         @apply bg-text text-white;
     }
     .activity-card {
-        @apply bg-card rounded-3xl border-border border-2 flex-row items-center px-10 py-4;
+        @apply bg-card rounded-3xl border-border border-2 flex-row items-center py-4;
     }
     .activity-card-image {
-        @apply items-center rounded-[24%];
+        @apply items-center rounded-[24%] mx-[3vw];
     }
 
     /*Bottom Tab*/
