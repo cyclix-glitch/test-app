@@ -27,13 +27,13 @@
 
     /*Homepage*/
     .home-top {
-        @apply flex-row items-center justify-between h-14 w-full;
+        @apply flex-row items-center justify-between h-auto w-full;
     }
     .home-status {
         @apply bg-pastel-purple font-[ui-rounded] rounded-full color-title px-4 py-3 shrink-0 font-bold text-xl;
     }
     .home-brand {
-        @apply h-[6vh] w-auto shrink-0 object-contain;
+        @apply h-20 w-auto aspect-square shrink-0 object-contain;
     }
     .home-greeting {
         @apply h-fit w-full text-4xl md:text-5xl font-[ui-rounded] font-bold color-title mt-10;
@@ -56,6 +56,9 @@
     }
     .activity-card {
         @apply bg-card rounded-3xl border-border border-2 flex-row items-center py-4;
+    }
+    .activity-card-hover {
+        @apply bg-border;
     }
     .activity-card-image {
         @apply items-center rounded-[24%] mx-[3vw];
@@ -98,31 +101,43 @@
     .section-header-count{
         @apply w-fit text-subtext ml-[5%] font-[ui-rounded] font-bold;
     }
-    /*.section-title{
-        @apply;
+    .section-title{
+        @apply w-full text-4xl font-semibold font-[ui-rounded] text-title;
     }
     .section-subtitle{
-        @apply;
+        @apply w-full text-xl font-[ui-rounded] text-subtext;
+    }
+    .section-accessibility{
+        @apply bg-pastel-purple w-full px-10 py-4 text-title text-2xl font-[ui-rounded];
     }
     .section-subtext{
-        @apply;
-    }
-    .section-previous{
-        @apply;
+        @apply w-full p-6 rounded-2xl border-border border-2 bg-white text-xl font-[ui-rounded];
     }
     .section-next{
-        @apply;
+        @apply bg-text active:bg-title px-8 py-5 grow-1 mx-10 rounded-2xl;
     }
     .section-switch-text{
-        @apply;
+        @apply text-white font-[ui-rounded] text-3xl text-center;
     }
-    .section-MCQ-option{
+    /* .section-MCQ-option{
         @apply;
+    }*/
+    .section-openended{
+        @apply w-full rounded-2xl border-border border-2 bg-white overflow-hidden;
     }
-    .section-textbox{
-        @apply;
+    .section-openended-text{
+        @apply px-4 pt-2 pb-5 text-xl font-[ui-rounded] text-title;
+    }
+    .section-openended-text-finished{
+        @apply text-subtext;
+    }
+    .sections-openended-submit{
+        @apply bg-text text-white w-80 px-8 py-3 rounded-full mt-3 mb-8 text-center font-[ui-rounded] text-2xl;
+    }
+    .sections-openended-submit-finished{
+        @apply bg-subtext;
     }
     .section-audiobox{
-        @apply;
-    } */
+        @apply bg-pastel-purple rounded-2xl w-full h-30;
+    }
 }

@@ -99,7 +99,7 @@ const Activity = () => {
         return <OpenEnded key={`${id}-${section}`} {...data} />;
       case "connections":
         return connection_game(data);
-      case "none":
+      default:
         return null;
     }
   }
@@ -129,7 +129,7 @@ const Activity = () => {
         {error ? <Text className="text-red-600 text-center">{error}</Text> : null}
       </View>
       <ScrollView style={{marginLeft:insets.left,marginRight:insets.right,marginBottom:insets.bottom}}>
-        <View className="mx-10 mt-5">
+        <View className="mx-10 mt-5 mb-20">
           {loading ? (
             <Text className="text-subtext text-xl">Loading activity...</Text>
           ) : sectionDetails ? (
@@ -137,7 +137,7 @@ const Activity = () => {
               {/* Display top header */}
               <Text className="section-title">{sectionDetails.title}</Text>
               {sectionDetails.subtitle!==null?<Text className="section-subtitle">{sectionDetails.subtitle}</Text>:null}
-              
+              <View className="h-8"/>
               {/* Display elements */}
               {sectionDetails.elements!==null?sectionDetails.elements.map((element,index) => (
                  <View key={index}>
@@ -146,7 +146,7 @@ const Activity = () => {
               )):null}
 
               {/* Display tail elements */}
-              {sectionDetails.subtext!==null?<View className="flex-row">
+              {sectionDetails.subtext!==null?<View className="flex-row mb-8">
                 {sectionDetails.subtext_icon!==null?<Image src={sectionDetails.subtext_icon}/>:null}
                 <Text className="section-subtext">{sectionDetails.subtext}</Text>
               </View>:null}
@@ -155,9 +155,9 @@ const Activity = () => {
               {sectionDetails.page_type==="none"?null:renderInteractable(sectionDetails)}
 
               {/* Display previous & next page element */}
-              <View className="flex-row">
+              <View className="flex-row justify-around">
                 {section!==0?
-                  <Pressable className="section-previous" disabled={completed || saving} onPress={()=>setSection(section-1)}>
+                  <Pressable className="section-next" disabled={completed || saving} onPress={()=>setSection(section-1)}>
                     <Text className="section-switch-text">Go back</Text>
                   </Pressable>:null
                 }

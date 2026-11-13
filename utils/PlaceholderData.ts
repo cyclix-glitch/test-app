@@ -61,11 +61,11 @@ export const ACTIVITY_DETAILS:{_guid:string,title:string,sections:(PageEssential
                         src:'<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://drive.google.com/file/d/1ohJOXqPlOSCn0W0Vl8W7RJ-UwiNJJeAl/preview" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="encrypted-media *;"></iframe></div>',
                         accessibility_text:"HTML Integration"
                     },
-                    {
-                        type:"web",
-                        src:'https://www.youtube.com/watch?v=l435o7AhDLQ',
-                        accessibility_text:"Peak music gng"
-                    }
+                    // {
+                    //     type:"web",
+                    //     src:'https://www.youtube.com/watch?v=l435o7AhDLQ',
+                    //     accessibility_text:"Peak music gng"
+                    // }
                 ],
                 subtext_icon: "housesolidfull",
                 subtext: "Elements test",
@@ -95,7 +95,7 @@ export const ACTIVITY_DETAILS:{_guid:string,title:string,sections:(PageEssential
                 subtext: "Elements test 2",
                 next_page_text: "Proceed.",
                 page_type:"open_ended",
-                DefaultText:"Im default text",
+                DefaultText:"",
                 PromptText:"What is 2+2?",
                 CorrectAnswer:"4",
                 ModelAnswer:"2+2=4",

@@ -1,37 +1,9 @@
 import clsx from "clsx";
-import { useEffect, useState } from "react";
-import { Alert, Linking, Pressable, TextInput, View, Text, Image, KeyboardAvoidingView } from "react-native";
+import { use, useEffect, useState } from "react";
+import { Pressable, TextInput, View, Text, Image, KeyboardAvoidingView, useWindowDimensions, LayoutChangeEvent } from "react-native";
 import { embedFrame } from "./embed";
 import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
-
-function getYouTubeUrl(src:string, isHtml = false):string|null {
-    const url = isHtml
-        ? src.match(/<iframe\b[^>]*\bsrc\s*=\s*(["'])(.*?)\1/i)?.[2]
-        : src;
-    if (!url) return null;
-
-    try {
-        const parsedUrl = new URL(url);
-        const allowedHosts = ["youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be", "youtube-nocookie.com", "www.youtube-nocookie.com"];
-        return parsedUrl.protocol === "https:" && allowedHosts.includes(parsedUrl.hostname)
-            ? parsedUrl.toString()
-            : null;
-    } catch {
-        return null;
-    }
-}
-
-function youtubeLink(url:string, accessibilityText:string|null) {
-    return <Pressable
-        accessibilityRole="link"
-        accessibilityLabel={accessibilityText ?? "Open video on YouTube"}
-        onPress={() => Linking.openURL(url).catch(() => {
-            Alert.alert("Unable to open video", "Please try opening the video again.");
-        })}
-    >
-        <Text>Watch on YouTube</Text>
-    </Pressable>;
-}
+import { colors } from "@/constants/theme";
 
 export function multiplechoice(activityDetails:Activity_MultipleChoice){
     return <View>
@@ -42,22 +14,45 @@ export function multiplechoice(activityDetails:Activity_MultipleChoice){
 export function OpenEnded(activityDetails:Activity_OpenEnded){
     const [text,setText] = useState(activityDetails.PastResponse ?? activityDetails.DefaultText ?? "")
     const [pastResponse,setPastResponse] = useState(activityDetails.PastResponse)
-    return <KeyboardAvoidingView>
-        <View className="sections-openended">
+    
+    const [correct, setCorrect] = useState<null|boolean>(null)
+
+    const SubmitAnswer = () => {
+        if (pastResponse !== null || !text.trim()) return;
+
+        setPastResponse(text)
+        if (activityDetails.CorrectAnswer !== null){
+            const normalizeAnswer = (answer: string) => answer.replace(/\s+/g, '').toLowerCase()
+            setCorrect(normalizeAnswer(text) === normalizeAnswer(activityDetails.CorrectAnswer))
+        }
+    }
+
+    return <KeyboardAvoidingView className="items-center">
+        <View className="section-openended">
+            <View className={clsx("w-full h-10",correct===null?"bg-pastel-purple":correct===true?"bg-pastel-green":"bg-pastel-red")} />
             <TextInput
-                className={clsx("section-openended-text",pastResponse?"section-openended-text-finished":null)}
-                editable={!pastResponse}
+                className={clsx("section-openended-text",pastResponse !== null?"section-openended-text-finished":null)}
+                editable={pastResponse === null}
                 placeholder={activityDetails.PromptText??undefined}
+                placeholderTextColor={colors.subtext}
+                multiline={true}
                 value={text}
                 onChangeText={(newText)=>setText(newText)}
             />
-            <Pressable
-                disabled={Boolean(pastResponse)}
-                onPress={()=>setPastResponse(text)}
-            >
-                <Text className={clsx("sections-openended-submit",pastResponse?"sections-openended-submit-finished":null)}>Submit</Text>
-            </Pressable>
         </View>
+        <Pressable
+            disabled={pastResponse !== null || !text.trim()}
+            onPress={SubmitAnswer}
+        >
+            <Text className={clsx("sections-openended-submit",pastResponse !== null?"sections-openended-submit-finished":null)}>Submit</Text>
+        </Pressable>
+        {(pastResponse!==null&&activityDetails.ModelAnswer!==null)?
+            <View>
+                <Text>
+                    {activityDetails.ModelAnswer}
+                </Text>
+            </View>:null
+        }
     </KeyboardAvoidingView>
 }
 
@@ -67,12 +62,13 @@ export function connection_game(activityDetails:Activity_Connections){
 }
 
 export function TextFieldPreview(src:string){
-    return <Text>{src}</Text> //download richtext library
-
+    return <Text className="font-[ui-rounded] text-xl text-title">{src}</Text> //download richtext library
 }
 
 export function EmbedPreview(src:string,accessibilityText:string|null){
-    return embedFrame(src,'html')
+    return <View className="mb-8">
+        {embedFrame(src,'html')}
+    </View>
 }
 
 export function WebPreview(src:string,accessibilityText:string|null){
@@ -80,13 +76,47 @@ export function WebPreview(src:string,accessibilityText:string|null){
 }
 
 export function ImagePreview({src,accessibilityText}: {src:string; accessibilityText:string|null}){
-    return <View>
+    const [aspectRatio, setAspectRatio] = useState<number>(1); // Fallback ratio
+    const {width:screenWidth,height:screenHeight} = useWindowDimensions();
+    const maxImageWidth = screenWidth * 0.6;
+    const maxImageHeight = screenHeight * 0.6;
+    const imageWidth = Math.min(maxImageWidth,maxImageHeight * aspectRatio);
+    const imageHeight = imageWidth / aspectRatio;
+    const [textHeight, setTextHeight] = useState<number>(0);
+    const [magnified, setMagnified] = useState(false);
+
+    const handleLayout = (event: LayoutChangeEvent) => {
+        const { height } = event.nativeEvent.layout;
+        setTextHeight(height);
+    };
+
+    useEffect(() => {
+    Image.getSize(src, (width, height) => {
+      if (width && height) {
+        setAspectRatio(width / height);
+      }
+    });
+    }, [src]);
+    return <View className="w-full bg-border overflow-hidden align-middle items-center rounded-3xl" style={{height:imageHeight+textHeight}}>
         <Image
             source={{uri:src}}
             accessibilityLabel={accessibilityText ?? undefined}
-            resizeMode="contain"
-            style={{width:"100%",height:240}}
+            resizeMode={magnified?"cover":"contain"}
+            style={{width:"100%",height:imageHeight}}
         />
+        <Pressable 
+            onPress={()=>setMagnified(!magnified)}
+            className="bg-white" style={{
+                position:"absolute",
+                right:10,
+                top:10
+            }}>
+            <Text>Magnify</Text>
+        </Pressable>
+        {accessibilityText?<Text
+            onLayout={handleLayout}
+            className="section-accessibility"
+        >{accessibilityText}</Text>:null}
     </View>
 }
 
@@ -112,7 +142,7 @@ export function AudioPreview({src,accessibilityText}: {src:string; accessibility
         })
     })
 
-    return <View className="section-audio">
+    return <View className="section-audiobox">
         <Pressable
             accessibilityRole="button"
             accessibilityLabel={`${status.playing ? "Pause" : "Play"} audio${accessibilityText ? `: ${accessibilityText}` : ""}`}
